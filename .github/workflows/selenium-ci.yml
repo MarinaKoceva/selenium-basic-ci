@@ -22,6 +22,15 @@ jobs:
     - name: Install Chrome for Selenium
       uses: browser-actions/setup-chrome@v1
 
+	- name: Install Chrome & ChromeDriver
+  	run: |
+    	sudo apt-get update
+    	sudo apt-get install -y google-chrome-stable unzip
+    	wget https://storage.googleapis.com/chrome-for-testing-	public/137.0.7151.70/linux64/chromedriver-linux64.zip
+    	unzip chromedriver-linux64.zip
+    	sudo mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
+    	sudo chmod +x /usr/bin/chromedriver
+
     - name: Restore dependencies
       run: dotnet restore SeleniumBasicExercise.sln
 
