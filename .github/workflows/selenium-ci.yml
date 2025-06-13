@@ -1,4 +1,4 @@
-name: Run Selenium Tests on .NET 6
+name: Selenium CI
 
 on:
   push:
@@ -7,35 +7,32 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
-    runs-on: windows-latest
+  build:
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout source code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Setup .NET 6
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '6.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
 
-    - name: Install Chrome for Selenium
-      uses: browser-actions/setup-chrome@v1
+      - name: Install Chrome & ChromeDriver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable unzip
+          wget https://storage.googleapis.com/chrome-for-testing-public/137.0.7151.70/linux64/chromedriver-linux64.zip
+          unzip chromedriver-linux64.zip
+          sudo mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
+          sudo chmod +x /usr/bin/chromedriver
 
-	- name: Install Chrome & ChromeDriver
-  	run: |
-    	sudo apt-get update
-    	sudo apt-get install -y google-chrome-stable unzip
-    	wget https://storage.googleapis.com/chrome-for-testing-	public/137.0.7151.70/linux64/chromedriver-linux64.zip
-    	unzip chromedriver-linux64.zip
-    	sudo mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
-    	sudo chmod +x /usr/bin/chromedriver
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Restore dependencies
-      run: dotnet restore SeleniumBasicExercise.sln
+      - name: Build
+        run: dotnet build --no-restore
 
-    - name: Build solution
-      run: dotnet build SeleniumBasicExercise.sln --no-restore
-
-    - name: Run tests
-      run: dotnet test SeleniumBasicExercise.sln --no-build --verbosity normal
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal
