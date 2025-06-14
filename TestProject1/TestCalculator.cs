@@ -21,13 +21,13 @@ namespace TestProject1
         public void SetUp()
         {
             var options = new ChromeOptions();
-            options.AddArguments("headless");
-            options.AddArguments("no-sandbox");
-            options.AddArguments("disable-dev-shm-usage");
-            options.AddArguments("disable-gpu");
-            options.AddArguments("window-size=1920x1080");
-            options.AddArguments("disable-extensions");
-            options.AddArguments("remote-debugging-port=9222");
+            options.AddArgument("--headless=new");
+            options.AddArgument("--no-sandbox");
+            options.AddArgument("--disable-dev-shm-usage");
+            options.AddArgument("--disable-gpu");
+            options.AddArgument("--window-size=1920,1080");
+            options.AddArgument("--disable-extensions");
+            options.AddArgument("--remote-debugging-port=9222");
 
             driver = new ChromeDriver(options);
 
