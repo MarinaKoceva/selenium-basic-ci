@@ -30,6 +30,7 @@ namespace TestProject1
             options.AddArgument("--remote-debugging-port=9222");
 
             driver = new ChromeDriver(options);
+            Console.WriteLine("Chrome version: " + ((ChromeDriver)driver).Capabilities.BrowserVersion);
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Url = "http://softuni-qa-loadbalancer-2137572849.eu-north-1.elb.amazonaws.com/number-calculator/";
