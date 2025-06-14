@@ -24,9 +24,7 @@ namespace TestProject2
             options.AddArgument("--remote-debugging-port=9222");
 
             driver = new ChromeDriver(options);
-            Console.WriteLine("Chrome version: " + ((ChromeDriver)driver).Capabilities.BrowserVersion);
-
-
+            
             // Add implicit wait
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
