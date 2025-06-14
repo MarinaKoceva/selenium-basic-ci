@@ -26,6 +26,7 @@ namespace TestProject2
             driver = new ChromeDriver(options);
 
 
+
             // Add implicit wait
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
