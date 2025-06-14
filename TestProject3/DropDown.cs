@@ -23,6 +23,7 @@ namespace TestProject3
             options.AddArgument("--window-size=1920,1080");
             options.AddArgument("--disable-extensions");
             options.AddArgument("--remote-debugging-port=9222");
+            options.AddArgument("--remote-allow-origins=*");
 
             driver = new ChromeDriver(options);
             
